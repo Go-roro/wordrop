@@ -36,7 +36,7 @@ func StartDashboard() {
 				return
 			}
 			msg.Text = fmt.Sprintf("You selected: %s", menu.Rows[selectedRowNum])
-			HandleCLISelectedOptions(selectedRowNum) // Adjust for 0-based index
+			HandleCLISelectedOptions(selectedRowNum)
 		}
 	}
 }
