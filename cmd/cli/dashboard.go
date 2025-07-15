@@ -3,6 +3,7 @@ package cli
 import (
 	"fmt"
 	"log"
+	"wordrop/cmd/cli/handlers"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -36,7 +37,7 @@ func StartDashboard() {
 				return
 			}
 			msg.Text = fmt.Sprintf("You selected: %s", menu.Rows[selectedRowNum])
-			HandleCLISelectedOptions(selectedRowNum)
+			handlers.HandleCLISelectedOptions(selectedRowNum)
 		}
 	}
 }
