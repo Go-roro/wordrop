@@ -1,9 +1,10 @@
 package handlers
 
 import (
+	"strings"
+
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
-	"strings"
 )
 
 const EscapeFlag = "QUIT"
