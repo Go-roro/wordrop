@@ -8,7 +8,7 @@ type Word struct {
 	EnglishMeaning string     `json:"english_meaning"`
 	KoreanMeanings []string   `json:"korean_meaning"`
 	Description    string     `json:"description"`
-	WordExamples   *[]Example `json:"examples"`
+	WordExamples   []*Example `json:"examples"`
 	Synonyms       []string   `json:"synonyms"`
 	IsDelivered    bool       `json:"is_delivered"`
 	DeliveredAt    time.Time  `json:"delivered_at"`
@@ -23,11 +23,18 @@ type Example struct {
 	KoreanText  string `json:"korean_text"`
 }
 
-func (w *Word) addMeanings(englishMeaning string, koreanMeanings *[]string) {
+func (w *Word) addMeanings(englishMeaning string, koreanMeanings []string) {
 	w.EnglishMeaning = englishMeaning
-	w.KoreanMeanings = append(w.KoreanMeanings, *koreanMeanings...)
+	w.KoreanMeanings = append(w.KoreanMeanings, koreanMeanings...)
 }
 
-func (w *Word) appendKoreanMeanings(koreanMeanings *[]string) {
-	w.KoreanMeanings = append(w.KoreanMeanings, *koreanMeanings...)
+func (w *Word) appendKoreanMeanings(koreanMeanings []string) {
+	w.KoreanMeanings = append(w.KoreanMeanings, koreanMeanings...)
+}
+
+func (w *Word) addWordExamples(examples []*Example) {
+	for _, example := range examples {
+		example.WordID = w.ID
+	}
+	w.WordExamples = append(w.WordExamples, examples...)
 }

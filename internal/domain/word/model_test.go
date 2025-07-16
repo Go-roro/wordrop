@@ -1,6 +1,7 @@
 package word
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -8,7 +9,7 @@ func TestWord_addMeanings(t *testing.T) {
 	type input struct {
 		word           *Word
 		englishMeaning string
-		koreanMeanings *[]string
+		koreanMeanings []string
 	}
 
 	tests := []struct {
@@ -23,7 +24,7 @@ func TestWord_addMeanings(t *testing.T) {
 					ID: 1,
 				},
 				englishMeaning: "test",
-				koreanMeanings: &[]string{"테스트", "시험"},
+				koreanMeanings: []string{"테스트", "시험"},
 			},
 			expected: &Word{
 				ID:             1,
@@ -40,7 +41,7 @@ func TestWord_addMeanings(t *testing.T) {
 					KoreanMeanings: []string{"평가"},
 				},
 				englishMeaning: "test",
-				koreanMeanings: &[]string{"테스트", "시험"},
+				koreanMeanings: []string{"테스트", "시험"},
 			},
 			expected: &Word{
 				ID:             1,
@@ -55,20 +56,8 @@ func TestWord_addMeanings(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			targetWord := tt.input.word
 			targetWord.addMeanings(tt.input.englishMeaning, tt.input.koreanMeanings)
-			if targetWord.EnglishMeaning != tt.expected.EnglishMeaning {
-				t.Errorf("Expected EnglishMeaning %s, got %s", tt.expected.EnglishMeaning, targetWord.EnglishMeaning)
-				return
-			}
 
-			if targetWord.KoreanMeanings == nil && tt.expected.KoreanMeanings == nil {
-				t.Errorf("Expected KoreanMeanings to be nil, got nil")
-				return
-			}
-
-			if len(targetWord.KoreanMeanings) != len(tt.expected.KoreanMeanings) {
-				t.Errorf("Expected KoreanMeanings length %d, got %d", len(tt.expected.KoreanMeanings), len(targetWord.KoreanMeanings))
-				return
-			}
+			assert.Equal(t, tt.expected.EnglishMeaning, targetWord.EnglishMeaning)
 		})
 	}
 }
@@ -101,16 +90,40 @@ func TestWord_appendKoreanMeanings(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.word.appendKoreanMeanings(&tt.newKoreanMeanings)
-			if len(tt.word.KoreanMeanings) != len(tt.expected) {
-				t.Errorf("Expected KoreanMeanings length %d, got %d", len(tt.expected), len(tt.word.KoreanMeanings))
-				return
-			}
-			for i, meaning := range tt.expected {
-				if tt.word.KoreanMeanings[i] != meaning {
-					t.Errorf("Expected KoreanMeaning at index %d to be %s, got %s", i, meaning, tt.word.KoreanMeanings[i])
-				}
-			}
+			tt.word.appendKoreanMeanings(tt.newKoreanMeanings)
+
+			assert.Equal(t, tt.expected, tt.word.KoreanMeanings)
+		})
+	}
+}
+
+func TestWord_addWordExamples(t *testing.T) {
+	tests := []struct {
+		name     string
+		word     *Word
+		examples []*Example
+		expected []*Example
+	}{
+		{
+			name: "Add examples to empty word",
+			word: &Word{
+				ID: 1,
+			},
+			examples: []*Example{
+				{ID: 1, ExampleText: "This is a test example.", KoreanText: "이것은 테스트 예시입니다."},
+				{ID: 2, ExampleText: "Another example.", KoreanText: "또 다른 예시입니다."},
+			},
+			expected: []*Example{
+				{ID: 1, WordID: 1, ExampleText: "This is a test example.", KoreanText: "이것은 테스트 예시입니다."},
+				{ID: 2, WordID: 1, ExampleText: "Another example.", KoreanText: "또 다른 예시입니다."},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.word.addWordExamples(tt.examples)
+			assert.Equal(t, tt.expected, tt.word.WordExamples)
 		})
 	}
 }
