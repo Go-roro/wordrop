@@ -38,3 +38,7 @@ func (w *Word) addWordExamples(examples []*Example) {
 	}
 	w.WordExamples = append(w.WordExamples, examples...)
 }
+
+func (w *Word) addSynonyms(synonyms []string) {
+	w.Synonyms = append(w.Synonyms, synonyms...)
+}

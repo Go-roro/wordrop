@@ -1,8 +1,9 @@
 package word
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestWord_addMeanings(t *testing.T) {
@@ -124,6 +125,40 @@ func TestWord_addWordExamples(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.word.addWordExamples(tt.examples)
 			assert.Equal(t, tt.expected, tt.word.WordExamples)
+		})
+	}
+}
+
+func TestWord_addSynonyms(t *testing.T) {
+	tests := []struct {
+		name     string
+		word     *Word
+		synonyms []string
+		expected []string
+	}{
+		{
+			name: "Add synonyms to empty word",
+			word: &Word{
+				ID: 1,
+			},
+			synonyms: []string{"test", "exam"},
+			expected: []string{"test", "exam"},
+		},
+		{
+			name: "Append synonyms to existing list",
+			word: &Word{
+				ID:       1,
+				Synonyms: []string{"sample"},
+			},
+			synonyms: []string{"test", "exam"},
+			expected: []string{"sample", "test", "exam"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.word.addSynonyms(tt.synonyms)
+			assert.Equal(t, tt.expected, tt.word.Synonyms)
 		})
 	}
 }
