@@ -27,3 +27,7 @@ func (w *Word) addMeanings(englishMeaning string, koreanMeanings *[]string) {
 	w.EnglishMeaning = englishMeaning
 	w.KoreanMeanings = append(w.KoreanMeanings, *koreanMeanings...)
 }
+
+func (w *Word) appendKoreanMeanings(koreanMeanings *[]string) {
+	w.KoreanMeanings = append(w.KoreanMeanings, *koreanMeanings...)
+}
