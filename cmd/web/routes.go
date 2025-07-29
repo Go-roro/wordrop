@@ -4,12 +4,14 @@ import (
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"wordrop/cmd/web/handlers"
+	"wordrop/internal/domain/word"
 )
 
-func SetupRouter() http.Handler {
+func SetupRouter(service *word.Service) http.Handler {
 	r := chi.NewRouter()
 	r.Route("/words", func(r chi.Router) {
-		r.Post("/", handlers.WordHandler.PostWordHandler)
+		wordHandler := &handlers.WordHandler{WordService: service}
+		r.Post("/", wordHandler.PostWordHandler)
 	})
 	return r
 }

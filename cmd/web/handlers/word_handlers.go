@@ -8,7 +8,7 @@ import (
 )
 
 type WordHandler struct {
-	wordService word.Service
+	WordService *word.Service
 }
 
 func (h *WordHandler) PostWordHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func (h *WordHandler) PostWordHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	saveDto := req.ToSaveDto()
-	createdWord, err := h.wordService.SaveNewWord(saveDto)
+	createdWord, err := h.WordService.SaveNewWord(saveDto)
 	if err != nil {
 		http.Error(w, "Failed to save word", http.StatusInternalServerError)
 		return
