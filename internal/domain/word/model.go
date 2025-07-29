@@ -3,9 +3,10 @@ package word
 import "time"
 
 type Word struct {
-	ID             int        `json:"id"`
-	Text           string     `json:"word"`
-	EnglishMeaning string     `json:"english_meaning"`
+	ID             int    `json:"id"`
+	Text           string `json:"word"`
+	EnglishMeaning string `json:"english_meaning"`
+
 	KoreanMeanings []string   `json:"korean_meaning"`
 	Description    string     `json:"description"`
 	WordExamples   []*Example `json:"examples"`
