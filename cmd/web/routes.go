@@ -1,4 +1,4 @@
-package main
+package web
 
 import (
 	"github.com/go-chi/chi/v5"
@@ -11,7 +11,7 @@ func SetupRouter(service *word.Service) http.Handler {
 	r := chi.NewRouter()
 	r.Route("/words", func(r chi.Router) {
 		wordHandler := &handlers.WordHandler{WordService: service}
-		r.Post("/", wordHandler.PostWordHandler)
+		r.Post("/", wordHandler.SaveWordHandler)
 	})
 	return r
 }

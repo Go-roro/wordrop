@@ -1,45 +1,25 @@
 package word
 
-import "time"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
+)
 
 type Word struct {
-	ID             int    `json:"id"`
-	Text           string `json:"word"`
-	EnglishMeaning string `json:"english_meaning"`
-
-	KoreanMeanings []string   `json:"korean_meaning"`
-	Description    string     `json:"description"`
-	WordExamples   []*Example `json:"examples"`
-	Synonyms       []string   `json:"synonyms"`
-	IsDelivered    bool       `json:"is_delivered"`
-	DeliveredAt    time.Time  `json:"delivered_at"`
-	CreatedAt      time.Time  `json:"created_at"`
-	UpdatedAt      time.Time  `json:"updated_at"`
+	ID             primitive.ObjectID `bson:"_id"`
+	Text           string             `bson:"word"`
+	EnglishMeaning string             `bson:"english_meaning"`
+	KoreanMeanings []string           `bson:"korean_meaning"`
+	Description    string             `bson:"description"`
+	WordExamples   []*Example         `bson:"examples"`
+	Synonyms       []string           `bson:"synonyms"`
+	IsDelivered    bool               `bson:"is_delivered"`
+	DeliveredAt    time.Time          `bson:"delivered_at"`
+	CreatedAt      time.Time          `bson:"created_at"`
+	UpdatedAt      time.Time          `bson:"updated_at"`
 }
 
 type Example struct {
-	ID          int    `json:"id"`
-	WordID      int    `json:"word_id"`
-	ExampleText string `json:"example_text"`
-	KoreanText  string `json:"korean_text"`
-}
-
-func (w *Word) addMeanings(englishMeaning string, koreanMeanings []string) {
-	w.EnglishMeaning = englishMeaning
-	w.KoreanMeanings = append(w.KoreanMeanings, koreanMeanings...)
-}
-
-func (w *Word) appendKoreanMeanings(koreanMeanings []string) {
-	w.KoreanMeanings = append(w.KoreanMeanings, koreanMeanings...)
-}
-
-func (w *Word) addWordExamples(examples []*Example) {
-	for _, example := range examples {
-		example.WordID = w.ID
-	}
-	w.WordExamples = append(w.WordExamples, examples...)
-}
-
-func (w *Word) addSynonyms(synonyms []string) {
-	w.Synonyms = append(w.Synonyms, synonyms...)
+	ExampleText string `bson:"example_text"`
+	KoreanText  string `bson:"korean_text"`
 }
