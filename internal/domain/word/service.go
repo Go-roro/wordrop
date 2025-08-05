@@ -1,28 +1,25 @@
 package word
 
-import (
-	"time"
-)
-
 type Service struct {
-	repository Repository
+	repository *MongoRepository
 }
 
-func NewWordService(repo Repository) *Service {
+func NewWordService(repo *MongoRepository) *Service {
 	return &Service{repository: repo}
 }
 
 func (s *Service) SaveNewWord(saveDto *SaveWordDto) (*Word, error) {
-	now := time.Now()
 	word := &Word{
 		Text:           saveDto.Text,
 		EnglishMeaning: saveDto.EnglishMeaning,
 		KoreanMeanings: saveDto.KoreanMeanings,
 		Description:    saveDto.Description,
 		Synonyms:       saveDto.Synonyms,
-		IsDelivered:    false,
-		CreatedAt:      now,
-		UpdatedAt:      now,
+		Examples: []struct {
+			ExampleText string `bson:"example_text,omitempty"`
+			KoreanText  string `bson:"korean_text,omitempty"`
+		}(saveDto.Examples),
+		IsDelivered: false,
 	}
 
 	savedWord, err := s.repository.SaveWord(word)
@@ -31,4 +28,31 @@ func (s *Service) SaveNewWord(saveDto *SaveWordDto) (*Word, error) {
 	}
 
 	return savedWord, nil
+}
+
+func (s *Service) UpdateWord(updateDto *UpdateWordDto) error {
+	word, err := s.repository.FindById(updateDto.ID)
+	if err != nil {
+		return err
+	}
+	updateWord := &Word{
+		Text:           updateDto.Text,
+		EnglishMeaning: updateDto.EnglishMeaning,
+		KoreanMeanings: updateDto.KoreanMeanings,
+		Description:    updateDto.Description,
+		Synonyms:       updateDto.Synonyms,
+		Examples: []struct {
+			ExampleText string `bson:"example_text,omitempty"`
+			KoreanText  string `bson:"korean_text,omitempty"`
+		}(updateDto.Examples),
+		IsDelivered: false,
+		CreatedAt:   word.CreatedAt,
+	}
+
+	err = s.repository.UpdateWord(updateWord)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

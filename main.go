@@ -1,19 +1,20 @@
 package main
 
 import (
-	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
-	"wordrop/cmd/web"
-	"wordrop/internal/domain/infra/db"
-	"wordrop/internal/domain/word"
+
+	"github.com/Go-roro/wordrop/cmd/web"
+	"github.com/Go-roro/wordrop/internal/domain/infra/db"
+	"github.com/Go-roro/wordrop/internal/domain/word"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 const localPort string = ":8080"
 
 func main() {
 	database := setupDatabase()
-	repo := db.NewWordMongoRepo(database)
+	repo := word.NewWordMongoRepo(database)
 	service := word.NewWordService(repo)
 
 	r := web.SetupRouter(service)

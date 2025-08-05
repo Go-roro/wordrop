@@ -3,8 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"wordrop/cmd/web/dto"
-	"wordrop/internal/domain/word"
+
+	"github.com/Go-roro/wordrop/cmd/web/dto"
+	"github.com/Go-roro/wordrop/internal/domain/word"
 )
 
 type WordHandler struct {

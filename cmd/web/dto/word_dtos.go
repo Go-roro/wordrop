@@ -1,6 +1,6 @@
 package dto
 
-import "wordrop/internal/domain/word"
+import "github.com/Go-roro/wordrop/internal/domain/word"
 
 type SaveWordRequest struct {
 	Text           string   `json:"word" validate:"required"`

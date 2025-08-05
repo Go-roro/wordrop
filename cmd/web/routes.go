@@ -1,10 +1,11 @@
 package web
 
 import (
-	"github.com/go-chi/chi/v5"
 	"net/http"
-	"wordrop/cmd/web/handlers"
-	"wordrop/internal/domain/word"
+
+	"github.com/Go-roro/wordrop/cmd/web/handlers"
+	"github.com/Go-roro/wordrop/internal/domain/word"
+	"github.com/go-chi/chi/v5"
 )
 
 func SetupRouter(service *word.Service) http.Handler {

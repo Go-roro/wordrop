@@ -2,13 +2,12 @@ package db
 
 import (
 	"context"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"time"
-)
 
-const collectionName = "words"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
 
 func NewMongoDatabase(uri, dbName string) (*mongo.Database, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -21,10 +20,4 @@ func NewMongoDatabase(uri, dbName string) (*mongo.Database, error) {
 
 	log.Println("✅ Connected to MongoDB")
 	return client.Database(dbName), nil
-}
-
-func NewWordMongoRepo(db *mongo.Database) *WordMongoRepository {
-	return &WordMongoRepository{
-		collection: db.Collection(collectionName),
-	}
 }
