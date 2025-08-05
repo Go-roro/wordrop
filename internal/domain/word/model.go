@@ -8,7 +8,7 @@ import (
 
 type Word struct {
 	ID             primitive.ObjectID `bson:"_id"`
-	Text           string             `bson:"word"`
+	Text           string             `bson:"text"`
 	EnglishMeaning string             `bson:"english_meaning"`
 	KoreanMeanings []string           `bson:"korean_meaning"`
 	Description    string             `bson:"description"`

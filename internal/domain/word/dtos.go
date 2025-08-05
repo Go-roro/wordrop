@@ -1,7 +1,7 @@
 package word
 
 type SaveWordDto struct {
-	Text           string   `json:"word" validate:"required"`
+	Text           string   `json:"text" validate:"required"`
 	EnglishMeaning string   `json:"english_meaning,omitempty"`
 	KoreanMeanings []string `json:"korean_meaning,omitempty"`
 	Description    string   `json:"description,omitempty"`
@@ -14,7 +14,7 @@ type SaveWordDto struct {
 
 type UpdateWordDto struct {
 	ID             string   `json:"id" validate:"required"`
-	Text           string   `json:"word" validate:"required"`
+	Text           string   `json:"text" validate:"required"`
 	EnglishMeaning string   `json:"english_meaning,omitempty"`
 	KoreanMeanings []string `json:"korean_meaning,omitempty"`
 	Description    string   `json:"description,omitempty"`
