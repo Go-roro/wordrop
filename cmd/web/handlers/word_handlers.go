@@ -38,3 +38,24 @@ func (h *WordHandler) SaveWordHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (h *WordHandler) UpdateWordHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPut {
+		http.Error(w, "Only PUT method is allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req dto.UpdateWordRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	err := h.WordService.UpdateWord(req.ToUpdateDto())
+	if err != nil {
+		http.Error(w, "Failed to update word", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
