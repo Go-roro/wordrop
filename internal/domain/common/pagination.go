@@ -1,5 +1,7 @@
 package common
 
+import "math"
+
 type PageResult[T any] struct {
 	Data      []T   `json:"data"`
 	Page      int   `json:"page"`
@@ -10,7 +12,8 @@ type PageResult[T any] struct {
 func NewPageResult[T any](data []T, page int, pageSize int64, totalSize int64) *PageResult[T] {
 	lastPage := 1
 	if totalSize > 0 && pageSize > 0 {
-		lastPage = int(totalSize / pageSize)
+		ceil := math.Ceil(float64(totalSize) / float64(pageSize))
+		lastPage = int(ceil)
 	}
 
 	return &PageResult[T]{
