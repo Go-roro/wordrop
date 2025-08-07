@@ -16,21 +16,21 @@ type WordHandler struct {
 func (h *WordHandler) SaveWordHandler(w http.ResponseWriter, r *http.Request) {
 	var req dto.SaveWordRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		NewHTTPError(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
 
 	saveDto := req.ToSaveDto()
 	createdWord, err := h.WordService.SaveNewWord(saveDto)
 	if err != nil {
-		http.Error(w, "Failed to save word", http.StatusInternalServerError)
+		NewHTTPError(w, "Failed to save word", http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(createdWord); err != nil {
-		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		NewHTTPError(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
 }
@@ -38,13 +38,13 @@ func (h *WordHandler) SaveWordHandler(w http.ResponseWriter, r *http.Request) {
 func (h *WordHandler) UpdateWordHandler(w http.ResponseWriter, r *http.Request) {
 	var req dto.UpdateWordRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		NewHTTPError(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
 
 	err := h.WordService.UpdateWord(req.ToUpdateDto())
 	if err != nil {
-		http.Error(w, "Failed to update word", http.StatusInternalServerError)
+		NewHTTPError(w, "Failed to update word", http.StatusInternalServerError)
 		return
 	}
 
@@ -60,7 +60,7 @@ func (h *WordHandler) GetWordsHandler(w http.ResponseWriter, r *http.Request) {
 	sortOrder := q.Get("sort_order")
 	isDelivered, err := strconv.ParseBool(q.Get("is_delivered"))
 	if err != nil {
-		http.Error(w, "Invalid query parameters", http.StatusBadRequest)
+		NewHTTPError(w, "Invalid query parameters", http.StatusBadRequest)
 		return
 	}
 
@@ -74,18 +74,18 @@ func (h *WordHandler) GetWordsHandler(w http.ResponseWriter, r *http.Request) {
 
 	words, err := h.WordService.FindWords(params)
 	if err != nil {
-		http.Error(w, "Failed to retrieve words", http.StatusInternalServerError)
+		NewHTTPError(w, "Failed to retrieve words", http.StatusInternalServerError)
 		return
 	}
 
 	if page > words.LastPage {
-		http.Error(w, "Page not found", http.StatusNotFound)
+		NewHTTPError(w, "Page not found", http.StatusNotFound)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(words); err != nil {
-		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		NewHTTPError(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
 }
