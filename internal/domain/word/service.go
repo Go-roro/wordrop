@@ -1,5 +1,7 @@
 package word
 
+import "github.com/Go-roro/wordrop/internal/domain/common"
+
 type Service struct {
 	repository *MongoRepository
 }
@@ -55,4 +57,11 @@ func (s *Service) UpdateWord(updateDto *UpdateWordDto) error {
 	}
 
 	return nil
+}
+
+func (s *Service) FindWords(params *SearchParams) (*common.PageResult[*Word], error) {
+	if params == nil {
+		params = &SearchParams{}
+	}
+	return s.repository.FindWords(params)
 }

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/Go-roro/wordrop/cmd/web/dto"
 	"github.com/Go-roro/wordrop/internal/domain/word"
@@ -13,11 +14,6 @@ type WordHandler struct {
 }
 
 func (h *WordHandler) SaveWordHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
 	var req dto.SaveWordRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
@@ -40,11 +36,6 @@ func (h *WordHandler) SaveWordHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *WordHandler) UpdateWordHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPut {
-		http.Error(w, "Only PUT method is allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
 	var req dto.UpdateWordRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
@@ -58,4 +49,43 @@ func (h *WordHandler) UpdateWordHandler(w http.ResponseWriter, r *http.Request) 
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func (h *WordHandler) GetWordsHandler(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+
+	page, err := strconv.Atoi(q.Get("page"))
+	pageSize, err := strconv.Atoi(q.Get("page_size"))
+	sortBy := q.Get("sort_by")
+	sortOrder := q.Get("sort_order")
+	isDelivered, err := strconv.ParseBool(q.Get("is_delivered"))
+	if err != nil {
+		http.Error(w, "Invalid query parameters", http.StatusBadRequest)
+		return
+	}
+
+	params := &word.SearchParams{
+		Page:        page,
+		PageSize:    pageSize,
+		SortBy:      sortBy,
+		SortOrder:   sortOrder,
+		IsDelivered: &isDelivered,
+	}
+
+	words, err := h.WordService.FindWords(params)
+	if err != nil {
+		http.Error(w, "Failed to retrieve words", http.StatusInternalServerError)
+		return
+	}
+
+	if page > words.LastPage {
+		http.Error(w, "Page not found", http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(words); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
 }
