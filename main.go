@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/Go-roro/wordrop/internal/domain/word"
 	"github.com/Go-roro/wordrop/internal/infra/db"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 
@@ -13,6 +14,11 @@ import (
 const localPort string = ":8080"
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	database := setupDatabase()
 	repo := word.NewWordMongoRepo(database)
 	service := word.NewWordService(repo)
