@@ -1,4 +1,4 @@
-package db
+package testhelper
 
 import (
 	"context"
@@ -19,6 +19,7 @@ type TestDatabase struct {
 	container  testcontainers.Container
 }
 
+// SetupTestDatabase sets up a MongoDB TestContainer for testing purposes.
 func SetupTestDatabase() *TestDatabase {
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()

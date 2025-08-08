@@ -1,23 +1,23 @@
 package word
 
 import (
-	"github.com/Go-roro/wordrop/internal/infra/db"
 	"log"
 	"strconv"
 	"testing"
 
+	"github.com/Go-roro/wordrop/internal/infra/testhelper"
 	"github.com/stretchr/testify/suite"
 )
 
 type WordRepoTestSuite struct {
 	suite.Suite
-	database *db.TestDatabase
+	database *testhelper.TestDatabase
 	repo     *MongoRepository
 }
 
 func (suite *WordRepoTestSuite) SetupSuite() {
 	log.Println("Setting up WordRepoTestSuite...")
-	suite.database = db.SetupTestDatabase()
+	suite.database = testhelper.SetupTestDatabase()
 	suite.repo = NewWordMongoRepo(suite.database.DbInstance)
 }
 
