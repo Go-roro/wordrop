@@ -1,11 +1,11 @@
 package word
 
 import (
+	"github.com/Go-roro/wordrop/internal/infra/db"
 	"log"
 	"strconv"
 	"testing"
 
-	"github.com/Go-roro/wordrop/internal/domain/infra/db"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -3,7 +3,7 @@ package word
 import (
 	"context"
 	"errors"
-	"github.com/Go-roro/wordrop/internal/domain/common"
+	"github.com/Go-roro/wordrop/internal/common"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"time"

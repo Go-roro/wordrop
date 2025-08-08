@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/Go-roro/wordrop/internal/domain/word"
+	"github.com/Go-roro/wordrop/internal/infra/db"
 	"log"
 	"net/http"
 
 	"github.com/Go-roro/wordrop/cmd/web"
-	"github.com/Go-roro/wordrop/internal/domain/infra/db"
-	"github.com/Go-roro/wordrop/internal/domain/word"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

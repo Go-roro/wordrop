@@ -1,10 +1,10 @@
 package web
 
 import (
+	"github.com/Go-roro/wordrop/internal/domain/word"
 	"net/http"
 
 	"github.com/Go-roro/wordrop/cmd/web/handlers"
-	"github.com/Go-roro/wordrop/internal/domain/word"
 	"github.com/go-chi/chi/v5"
 )
 

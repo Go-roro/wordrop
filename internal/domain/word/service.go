@@ -1,6 +1,8 @@
 package word
 
-import "github.com/Go-roro/wordrop/internal/domain/common"
+import (
+	"github.com/Go-roro/wordrop/internal/common"
+)
 
 type Service struct {
 	repository *MongoRepository
