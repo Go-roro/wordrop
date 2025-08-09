@@ -1,6 +1,7 @@
 package subscription
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/Go-roro/wordrop/internal/infra/email"
@@ -19,34 +20,34 @@ func NewSubscriptionService(repo *Repository, mailSender email.MailSender) *Serv
 }
 
 func (s *Service) SaveSubscription(saveDto *SaveSubscriptionDto) error {
-	if s.isNewEmail(saveDto.Email) {
-		subscription := NewSubscription(saveDto.Email, saveDto.Username)
-		savedSubscription, err := s.repository.SaveSubscription(subscription)
+	subscription, err := s.repository.FindByEmail(saveDto.Email)
+	if err != nil && errors.Is(err, ErrSubscriptionNotFound) {
+		newSubscription := NewSubscription(saveDto.Username, saveDto.Email)
+		subscription, err = s.repository.SaveSubscription(newSubscription)
 		if err != nil {
 			return fmt.Errorf("failed to save subscription: %w", err)
 		}
-		return s.sendVerificationEmail(savedSubscription)
+		return s.sendVerificationEmail(subscription)
 	}
 
-	existSubscription, err := s.repository.FindByEmail(saveDto.Email)
 	if err != nil {
-		return fmt.Errorf("failed to find existing subscription: %w", err)
+		return fmt.Errorf("failed to find subscription: %w", err)
 	}
 
-	existSubscription.refreshBannedStatus()
-	if err := existSubscription.ValidateVerifiable(); err != nil {
+	subscription.refreshBannedStatus()
+	if err := subscription.ValidateVerifiable(); err != nil {
 		return fmt.Errorf("failed to validate subscription: %w", err)
 	}
 
-	if existSubscription.isShouldBeBan() {
-		existSubscription.ban()
-		if err := s.repository.UpdateSubscription(existSubscription); err != nil {
+	if subscription.isShouldBeBan() {
+		subscription.ban()
+		if err := s.repository.UpdateSubscription(subscription); err != nil {
 			return fmt.Errorf("failed to update subscription after banning: %w", err)
 		}
 		return ErrVerificationBanned
 	}
 
-	return s.sendVerificationEmail(existSubscription)
+	return s.sendVerificationEmail(subscription)
 }
 
 func (s *Service) sendVerificationEmail(subscription *Subscription) error {
@@ -60,8 +61,4 @@ func (s *Service) sendVerificationEmail(subscription *Subscription) error {
 		return fmt.Errorf("failed to update subscription after sending email: %w", err)
 	}
 	return nil
-}
-
-func (s *Service) isNewEmail(email string) bool {
-	return !s.repository.ExistsByEmail(email)
 }
