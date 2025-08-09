@@ -5,15 +5,12 @@ import (
 )
 
 type SaveWordRequest struct {
-	Text           string   `json:"word" validate:"required"`
-	EnglishMeaning string   `json:"english_meaning,omitempty"`
-	KoreanMeanings []string `json:"korean_meaning,omitempty"`
-	Description    string   `json:"description,omitempty"`
-	Examples       []struct {
-		ExampleText string `json:"example_text,omitempty"`
-		KoreanText  string `json:"korean_text,omitempty"`
-	} `json:"examples,omitempty"`
-	Synonyms []string `json:"synonyms,omitempty"`
+	Text           string         `json:"word" validate:"required"`
+	EnglishMeaning string         `json:"english_meaning,omitempty"`
+	KoreanMeanings []string       `json:"korean_meaning,omitempty"`
+	Description    string         `json:"description,omitempty"`
+	Examples       []word.Example `json:"examples,omitempty"`
+	Synonyms       []string       `json:"synonyms,omitempty"`
 }
 
 func (req *SaveWordRequest) ToSaveDto() *word.SaveWordDto {
@@ -28,16 +25,13 @@ func (req *SaveWordRequest) ToSaveDto() *word.SaveWordDto {
 }
 
 type UpdateWordRequest struct {
-	ID             string   `json:"id" validate:"required"`
-	Text           string   `json:"word" validate:"required"`
-	EnglishMeaning string   `json:"english_meaning,omitempty"`
-	KoreanMeanings []string `json:"korean_meaning,omitempty"`
-	Description    string   `json:"description,omitempty"`
-	Examples       []struct {
-		ExampleText string `json:"example_text,omitempty"`
-		KoreanText  string `json:"korean_text,omitempty"`
-	} `json:"examples,omitempty"`
-	Synonyms []string `json:"synonyms,omitempty"`
+	ID             string         `json:"id" validate:"required"`
+	Text           string         `json:"word" validate:"required"`
+	EnglishMeaning string         `json:"english_meaning,omitempty"`
+	KoreanMeanings []string       `json:"korean_meaning,omitempty"`
+	Description    string         `json:"description,omitempty"`
+	Examples       []word.Example `json:"examples,omitempty"`
+	Synonyms       []string       `json:"synonyms,omitempty"`
 }
 
 func (req *UpdateWordRequest) ToUpdateDto() *word.UpdateWordDto {

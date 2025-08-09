@@ -43,10 +43,7 @@ func wordFixture() *Word {
 		EnglishMeaning: "a procedure intended to establish the quality, performance, or reliability of something",
 		KoreanMeanings: []string{"테스트", "시험"},
 		Description:    "A test is a method of assessing the quality or performance of something.",
-		Examples: []struct {
-			ExampleText string `bson:"example_text,omitempty"`
-			KoreanText  string `bson:"korean_text,omitempty"`
-		}{
+		Examples: []Example{
 			{
 				ExampleText: "The test results were positive.",
 				KoreanText:  "시험 결과는 긍정적이었습니다.",

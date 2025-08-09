@@ -19,11 +19,8 @@ func (s *Service) SaveNewWord(saveDto *SaveWordDto) (*Word, error) {
 		KoreanMeanings: saveDto.KoreanMeanings,
 		Description:    saveDto.Description,
 		Synonyms:       saveDto.Synonyms,
-		Examples: []struct {
-			ExampleText string `bson:"example_text,omitempty"`
-			KoreanText  string `bson:"korean_text,omitempty"`
-		}(saveDto.Examples),
-		IsDelivered: false,
+		Examples:       saveDto.Examples,
+		IsDelivered:    false,
 	}
 
 	savedWord, err := s.repository.SaveWord(word)
@@ -45,12 +42,9 @@ func (s *Service) UpdateWord(updateDto *UpdateWordDto) error {
 		KoreanMeanings: updateDto.KoreanMeanings,
 		Description:    updateDto.Description,
 		Synonyms:       updateDto.Synonyms,
-		Examples: []struct {
-			ExampleText string `bson:"example_text,omitempty"`
-			KoreanText  string `bson:"korean_text,omitempty"`
-		}(updateDto.Examples),
-		IsDelivered: false,
-		CreatedAt:   word.CreatedAt,
+		Examples:       updateDto.Examples,
+		IsDelivered:    false,
+		CreatedAt:      word.CreatedAt,
 	}
 
 	err = s.repository.UpdateWord(updateWord)
