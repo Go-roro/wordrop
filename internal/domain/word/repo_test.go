@@ -58,8 +58,8 @@ func wordFixture() *Word {
 	}
 }
 
-func (suite *WordRepoTestSuite) TestWordMongoRepository_SaveWord() {
-	suite.Run("TestWordMongoRepository_SaveWord", func() {
+func (suite *WordRepoTestSuite) TestWordRepository_SaveWord() {
+	suite.Run("Save", func() {
 		word := wordFixture()
 		savedWord, err := suite.repo.SaveWord(word)
 
@@ -69,8 +69,8 @@ func (suite *WordRepoTestSuite) TestWordMongoRepository_SaveWord() {
 	})
 }
 
-func (suite *WordRepoTestSuite) TestWordMongoRepository_FindById() {
-	suite.Run("TestWordMongoRepository_FindById", func() {
+func (suite *WordRepoTestSuite) TestWordRepository_FindById() {
+	suite.Run("Found", func() {
 		word := wordFixture()
 		savedWord, err := suite.repo.SaveWord(word)
 		suite.NoError(err, "Expected no error when saving word")
@@ -81,8 +81,8 @@ func (suite *WordRepoTestSuite) TestWordMongoRepository_FindById() {
 	})
 }
 
-func (suite *WordRepoTestSuite) TestWordMongoRepository_UpdateWord() {
-	suite.Run("TestWordMongoRepository_UpdateWord", func() {
+func (suite *WordRepoTestSuite) TestWordRepository_UpdateWord() {
+	suite.Run("Update", func() {
 		word := wordFixture()
 		savedWord, _ := suite.repo.SaveWord(word)
 
@@ -98,48 +98,54 @@ func (suite *WordRepoTestSuite) TestWordMongoRepository_UpdateWord() {
 	})
 }
 
-func (suite *WordRepoTestSuite) Test_FindWords_Basic() {
-	_, _ = suite.repo.SaveWord(wordFixture())
-	_, _ = suite.repo.SaveWord(wordFixture())
+func (suite *WordRepoTestSuite) TestFindWords_Basic() {
+	suite.Run("Basic FindWords", func() {
+		_, _ = suite.repo.SaveWord(wordFixture())
+		_, _ = suite.repo.SaveWord(wordFixture())
 
-	words, err := suite.repo.FindWords(&SearchParams{})
-	suite.NoError(err, "Expected no error when finding words")
+		words, err := suite.repo.FindWords(&SearchParams{})
+		suite.NoError(err, "Expected no error when finding words")
 
-	suite.Equal(2, len(words.Data), "Expected to find 2 words")
-	suite.Equal(1, words.Page, "Expected page number to be 1")
-}
-
-func (suite *WordRepoTestSuite) Test_FindWords_WithIsDeliveredFilter() {
-	wordA := wordFixture()
-	wordA.IsDelivered = true
-	_, _ = suite.repo.SaveWord(wordA)
-	_, _ = suite.repo.SaveWord(wordFixture())
-
-	isDelivered := true
-	words, err := suite.repo.FindWords(&SearchParams{IsDelivered: &isDelivered})
-	suite.NoError(err, "Expected no error when finding words with is_delivered filter")
-
-	suite.Equal(1, len(words.Data), "Expected to find 1 word with is_delivered true")
-	suite.True(words.Data[0].IsDelivered)
-}
-
-func (suite *WordRepoTestSuite) Test_FindWords_WithPagination() {
-	for i := 0; i < 5; i++ {
-		w := wordFixture()
-		w.Text = "test" + strconv.Itoa(i)
-		_, _ = suite.repo.SaveWord(w)
-	}
-
-	page := 2
-	pageSize := 2
-	words, err := suite.repo.FindWords(&SearchParams{
-		Page:     page,
-		PageSize: pageSize,
+		suite.Equal(2, len(words.Data), "Expected to find 2 words")
+		suite.Equal(1, words.Page, "Expected page number to be 1")
 	})
-	suite.NoError(err, "Expected no error when finding words with pagination")
+}
 
-	suite.Equal(pageSize, len(words.Data))
-	suite.Equal(page, words.Page)
-	suite.Equal(3, words.LastPage)
-	suite.Equal(int64(5), words.TotalSize)
+func (suite *WordRepoTestSuite) TestFindWordsWithIsDeliveredFilter() {
+	suite.Run("FindWords with is_delivered filter", func() {
+		wordA := wordFixture()
+		wordA.IsDelivered = true
+		_, _ = suite.repo.SaveWord(wordA)
+		_, _ = suite.repo.SaveWord(wordFixture())
+
+		isDelivered := true
+		words, err := suite.repo.FindWords(&SearchParams{IsDelivered: &isDelivered})
+		suite.NoError(err, "Expected no error when finding words with is_delivered filter")
+
+		suite.Equal(1, len(words.Data), "Expected to find 1 word with is_delivered true")
+		suite.True(words.Data[0].IsDelivered)
+	})
+}
+
+func (suite *WordRepoTestSuite) TestFindWordsWithPagination() {
+	suite.Run("FindWords with pagination", func() {
+		for i := 0; i < 5; i++ {
+			w := wordFixture()
+			w.Text = "test" + strconv.Itoa(i)
+			_, _ = suite.repo.SaveWord(w)
+		}
+
+		page := 2
+		pageSize := 2
+		words, err := suite.repo.FindWords(&SearchParams{
+			Page:     page,
+			PageSize: pageSize,
+		})
+		suite.NoError(err, "Expected no error when finding words with pagination")
+
+		suite.Equal(pageSize, len(words.Data))
+		suite.Equal(page, words.Page)
+		suite.Equal(3, words.LastPage)
+		suite.Equal(int64(5), words.TotalSize)
+	})
 }

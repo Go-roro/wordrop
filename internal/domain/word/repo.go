@@ -3,14 +3,14 @@ package word
 import (
 	"context"
 	"errors"
-	"github.com/Go-roro/wordrop/internal/common"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"time"
 
+	"github.com/Go-roro/wordrop/internal/common"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const collectionName = "words"
@@ -29,7 +29,6 @@ func (r *Repository) SaveWord(word *Word) (*Word, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	word.ID = primitive.NewObjectID()
 	now := time.Now()
 	word.CreatedAt = now
 	word.UpdatedAt = now
@@ -69,19 +68,7 @@ func (r *Repository) UpdateWord(word *Word) error {
 	defer cancel()
 
 	target := bson.M{"_id": word.ID}
-	update := bson.M{
-		"$set": bson.M{
-			"text":            word.Text,
-			"english_meaning": word.EnglishMeaning,
-			"korean_meaning":  word.KoreanMeanings,
-			"description":     word.Description,
-			"synonyms":        word.Synonyms,
-			"examples":        word.Examples,
-			"is_delivered":    word.IsDelivered,
-			"created_at":      word.CreatedAt,
-			"updated_at":      time.Now(),
-		},
-	}
+	update := bson.M{"$set": word}
 
 	_, err := r.collection.UpdateOne(ctx, target, update)
 	if err != nil {

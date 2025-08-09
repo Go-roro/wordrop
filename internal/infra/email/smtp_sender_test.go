@@ -3,13 +3,14 @@ package email
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Go-roro/wordrop/internal/infra/testhelper"
-	"github.com/joho/godotenv"
-	"github.com/stretchr/testify/suite"
 	"io"
 	"log"
 	"net/http"
 	"testing"
+
+	"github.com/Go-roro/wordrop/internal/infra/testhelper"
+	"github.com/joho/godotenv"
+	"github.com/stretchr/testify/suite"
 )
 
 const testEnvPath = "../testhelper/.env.email-test"
