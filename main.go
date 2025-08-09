@@ -20,7 +20,7 @@ func main() {
 	}
 
 	database := setupDatabase()
-	repo := word.NewWordMongoRepo(database)
+	repo := word.NewWordRepo(database)
 	service := word.NewWordService(repo)
 
 	r := web.SetupRouter(service)

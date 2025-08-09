@@ -5,10 +5,10 @@ import (
 )
 
 type Service struct {
-	repository *MongoRepository
+	repository *Repository
 }
 
-func NewWordService(repo *MongoRepository) *Service {
+func NewWordService(repo *Repository) *Service {
 	return &Service{repository: repo}
 }
 

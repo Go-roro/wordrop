@@ -12,13 +12,13 @@ import (
 type WordRepoTestSuite struct {
 	suite.Suite
 	database *testhelper.TestDatabase
-	repo     *MongoRepository
+	repo     *Repository
 }
 
 func (suite *WordRepoTestSuite) SetupSuite() {
 	log.Println("Setting up WordRepoTestSuite...")
 	suite.database = testhelper.SetupTestDatabase()
-	suite.repo = NewWordMongoRepo(suite.database.DbInstance)
+	suite.repo = NewWordRepo(suite.database.DbInstance)
 }
 
 func (suite *WordRepoTestSuite) TearDownSuite() {
