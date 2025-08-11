@@ -11,7 +11,7 @@ import (
 type SubscriptionRepoTestSuite struct {
 	suite.Suite
 	database *testhelper.TestDatabase
-	repo     *Repository
+	repo     *MongoRepository
 }
 
 func (suite *SubscriptionRepoTestSuite) SetupSuite() {

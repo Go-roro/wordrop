@@ -3,16 +3,25 @@ package subscription
 import (
 	"errors"
 	"fmt"
-
-	"github.com/Go-roro/wordrop/internal/infra/email"
 )
 
-type Service struct {
-	repository *Repository
-	mailSender email.MailSender
+type Repository interface {
+	FindByEmail(email string) (*Subscription, error)
+	ExistsByEmail(email string) bool
+	SaveSubscription(subscription *Subscription) (*Subscription, error)
+	UpdateSubscription(subscription *Subscription) error
 }
 
-func NewSubscriptionService(repo *Repository, mailSender email.MailSender) *Service {
+type MailSender interface {
+	SendVerificationEmail(email, username, code string) error
+}
+
+type Service struct {
+	repository Repository
+	mailSender MailSender
+}
+
+func NewSubscriptionService(repo Repository, mailSender MailSender) *Service {
 	return &Service{
 		repository: repo,
 		mailSender: mailSender,

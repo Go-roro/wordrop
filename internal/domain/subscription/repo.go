@@ -12,17 +12,17 @@ import (
 
 const collectionName = "subscriptions"
 
-type Repository struct {
+type MongoRepository struct {
 	collection *mongo.Collection
 }
 
-func NewSubscriptionRepo(db *mongo.Database) *Repository {
-	return &Repository{
+func NewSubscriptionRepo(db *mongo.Database) *MongoRepository {
+	return &MongoRepository{
 		collection: db.Collection(collectionName),
 	}
 }
 
-func (r *Repository) FindByEmail(email string) (*Subscription, error) {
+func (r *MongoRepository) FindByEmail(email string) (*Subscription, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -35,7 +35,7 @@ func (r *Repository) FindByEmail(email string) (*Subscription, error) {
 	return subscription, nil
 }
 
-func (r *Repository) ExistsByEmail(email string) bool {
+func (r *MongoRepository) ExistsByEmail(email string) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -47,7 +47,7 @@ func (r *Repository) ExistsByEmail(email string) bool {
 	return count > 0
 }
 
-func (r *Repository) SaveSubscription(subscription *Subscription) (*Subscription, error) {
+func (r *MongoRepository) SaveSubscription(subscription *Subscription) (*Subscription, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -63,7 +63,7 @@ func (r *Repository) SaveSubscription(subscription *Subscription) (*Subscription
 	return subscription, nil
 }
 
-func (r *Repository) UpdateSubscription(subscription *Subscription) error {
+func (r *MongoRepository) UpdateSubscription(subscription *Subscription) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 

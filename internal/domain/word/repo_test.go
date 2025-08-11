@@ -12,7 +12,7 @@ import (
 type WordRepoTestSuite struct {
 	suite.Suite
 	database *testhelper.TestDatabase
-	repo     *Repository
+	repo     *MongoRepository
 }
 
 func (suite *WordRepoTestSuite) SetupSuite() {

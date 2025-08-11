@@ -23,7 +23,7 @@ const (
 
 type EmailSenderTestSuite struct {
 	suite.Suite
-	sender     *MailSender
+	sender     *GmailSender
 	mailServer *testhelper.TestMailServer
 }
 
@@ -38,12 +38,12 @@ func (suite *EmailSenderTestSuite) SetupSuite() {
 
 	config, err := NewMailSenderConfigByKey(fromEmailEnv, passwordEnv, smtpHostEnv, smtpPortEnv)
 	if err != nil {
-		log.Fatalf("Failed to create MailSenderConfig: %v", err)
+		log.Fatalf("Failed to create GmailSenderConfig: %v", err)
 	}
 
 	suite.sender, err = NewMailSender(config)
 	if err != nil {
-		log.Fatalf("Failed to create MailSender: %v", err)
+		log.Fatalf("Failed to create GmailSender: %v", err)
 	}
 }
 

@@ -3,12 +3,12 @@ package testhelper
 import (
 	"context"
 	"fmt"
-	"github.com/docker/go-connections/nat"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/docker/go-connections/nat"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 )

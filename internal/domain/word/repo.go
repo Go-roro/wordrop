@@ -15,17 +15,17 @@ import (
 
 const collectionName = "words"
 
-type Repository struct {
+type MongoRepository struct {
 	collection *mongo.Collection
 }
 
-func NewWordRepo(db *mongo.Database) *Repository {
-	return &Repository{
+func NewWordRepo(db *mongo.Database) *MongoRepository {
+	return &MongoRepository{
 		collection: db.Collection(collectionName),
 	}
 }
 
-func (r *Repository) SaveWord(word *Word) (*Word, error) {
+func (r *MongoRepository) SaveWord(word *Word) (*Word, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -43,7 +43,7 @@ func (r *Repository) SaveWord(word *Word) (*Word, error) {
 	return word, nil
 }
 
-func (r *Repository) FindById(id string) (*Word, error) {
+func (r *MongoRepository) FindById(id string) (*Word, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -63,7 +63,7 @@ func (r *Repository) FindById(id string) (*Word, error) {
 	return findWord, nil
 }
 
-func (r *Repository) UpdateWord(word *Word) error {
+func (r *MongoRepository) UpdateWord(word *Word) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -101,7 +101,7 @@ var allowedSortOrders = map[string]int{
 	"desc": -1,
 }
 
-func (r *Repository) FindWords(params *SearchParams) (*common.PageResult[*Word], error) {
+func (r *MongoRepository) FindWords(params *SearchParams) (*common.PageResult[*Word], error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 

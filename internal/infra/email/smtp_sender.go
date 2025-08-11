@@ -11,14 +11,14 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-type MailSenderConfig struct {
+type GmailSenderConfig struct {
 	fromEmail string
 	password  string
 	smtpHost  string
 	smtpPort  int
 }
 
-func NewMailSenderConfigByKey(fromEmailKey, passwordKey, smtpHostKey, smtpPortKey string) (*MailSenderConfig, error) {
+func NewMailSenderConfigByKey(fromEmailKey, passwordKey, smtpHostKey, smtpPortKey string) (*GmailSenderConfig, error) {
 	for _, envKeys := range []string{fromEmailKey, passwordKey, smtpHostKey, smtpPortKey} {
 		if value, ok := os.LookupEnv(envKeys); value == "" || !ok {
 			return nil, fmt.Errorf("environment variable %s is not set", envKeys)
@@ -30,7 +30,7 @@ func NewMailSenderConfigByKey(fromEmailKey, passwordKey, smtpHostKey, smtpPortKe
 		return nil, fmt.Errorf("failed to convert %s in .env.email-test file to integer: %w", smtpPortKey, err)
 	}
 
-	return &MailSenderConfig{
+	return &GmailSenderConfig{
 		fromEmail: os.Getenv(fromEmailKey),
 		password:  os.Getenv(passwordKey),
 		smtpHost:  os.Getenv(smtpHostKey),
@@ -38,13 +38,13 @@ func NewMailSenderConfigByKey(fromEmailKey, passwordKey, smtpHostKey, smtpPortKe
 	}, nil
 }
 
-type MailSender struct {
+type GmailSender struct {
 	dialer               *gomail.Dialer
-	config               *MailSenderConfig
+	config               *GmailSenderConfig
 	verificationTemplate *template.Template
 }
 
-func NewMailSender(config *MailSenderConfig) (*MailSender, error) {
+func NewMailSender(config *GmailSenderConfig) (*GmailSender, error) {
 	dialer := gomail.NewDialer(config.smtpHost, config.smtpPort, config.fromEmail, config.password)
 
 	verificationTemplate, err := template.ParseFiles("template/verification.html")
@@ -52,7 +52,7 @@ func NewMailSender(config *MailSenderConfig) (*MailSender, error) {
 		return nil, fmt.Errorf("could not parse verification template: %w", err)
 	}
 
-	return &MailSender{
+	return &GmailSender{
 		dialer:               dialer,
 		config:               config,
 		verificationTemplate: verificationTemplate,
@@ -64,7 +64,7 @@ type VerificationTemplateData struct {
 	VerificationLink string
 }
 
-func (gs *MailSender) SendVerificationEmail(toEmail string, username string, verificationToken string) error {
+func (gs *GmailSender) SendVerificationEmail(toEmail string, username string, verificationToken string) error {
 	baseURL := os.Getenv("APP_BASE_URL")
 	verificationLink := fmt.Sprintf("%s/verify?token=%s", baseURL, verificationToken)
 

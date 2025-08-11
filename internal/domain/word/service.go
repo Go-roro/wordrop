@@ -1,14 +1,19 @@
 package word
 
-import (
-	"github.com/Go-roro/wordrop/internal/common"
-)
+import "github.com/Go-roro/wordrop/internal/common"
 
-type Service struct {
-	repository *Repository
+type Repository interface {
+	SaveWord(word *Word) (*Word, error)
+	FindById(id string) (*Word, error)
+	FindWords(params *SearchParams) (*common.PageResult[*Word], error)
+	UpdateWord(word *Word) error
 }
 
-func NewWordService(repo *Repository) *Service {
+type Service struct {
+	repository Repository
+}
+
+func NewWordService(repo Repository) *Service {
 	return &Service{repository: repo}
 }
 
