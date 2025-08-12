@@ -69,8 +69,6 @@ func (suite *EmailSenderTestSuite) TestSendVerificationEmail() {
 		err := suite.sender.SendVerificationEmail(toEmail, username, token)
 		suite.Require().NoError(err, "Expected no error when sending verification email")
 
-		//time.Sleep(200 * time.Millisecond) // Give MailHog a moment to process
-
 		apiUrl := fmt.Sprintf("%s/api/v2/messages", suite.mailServer.ApiUrl)
 		resp, err := http.Get(apiUrl)
 		suite.NoError(err, "Failed to connect to MailHog API")

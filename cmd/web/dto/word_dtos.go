@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/Go-roro/wordrop/internal/domain/word"
+	"github.com/Go-roro/wordrop/internal/word"
 )
 
 type SaveWordRequest struct {
