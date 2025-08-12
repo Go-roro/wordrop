@@ -44,7 +44,7 @@ func (s *Service) SaveSubscription(saveDto *SaveSubscriptionDto) error {
 	}
 
 	subscription.refreshBannedStatus()
-	if err := subscription.ValidateVerifiable(); err != nil {
+	if err := subscription.validateVerifiable(); err != nil {
 		return fmt.Errorf("failed to validate subscription: %w", err)
 	}
 

@@ -41,7 +41,7 @@ func TestSubscription_ValidateVerifiable(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := tt.sub.ValidateVerifiable()
+			err := tt.sub.validateVerifiable()
 			assert.Error(t, err)
 		})
 	}

@@ -4,17 +4,21 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="refactor: change directory">
+    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="test: Unit test for subscription service with mocks">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/web/dto/word_dtos.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/dto/word_dtos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/web/handlers/word_handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/handlers/word_handlers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/web/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
@@ -31,7 +35,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
     "Go Build.go build main.go.executor": "Run",
+    "Go Test.TestSaveSubscription_AlreadyVerifiedUser in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestSaveSubscription_BannedExpiredUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestSaveSubscription_Banned_User in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestSaveSubscription_ExistingUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestSaveSubscription_NewUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestSaveSubscription_TooManyRequestedUser in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.TestVerifySubscription_ToManyRequested_User in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
+    "Go Test.go test github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -44,22 +57,82 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/subscription" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/internal" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.go test github.com/Go-roro/wordrop/internal/subscription">
+    <configuration name="TestSaveSubscription_AlreadyVerifiedUser in github.com/Go-roro/wordrop/internal/subscription" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="wordrop" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <package value="github.com/Go-roro/wordrop" />
+      <working_directory value="$PROJECT_DIR$/internal/subscription" />
+      <parameters value=" -testify.m ^TestSaveSubscription_AlreadyVerifiedUser$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Go-roro/wordrop/internal/subscription" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/main.go" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestSubscriptionServiceTestSuite\E$/^\QTestSaveSubscription_AlreadyVerifiedUser\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestSaveSubscription_BannedExpiredUser_Success in github.com/Go-roro/wordrop/internal/subscription" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="wordrop" />
+      <working_directory value="$PROJECT_DIR$/internal/subscription" />
+      <parameters value=" -testify.m ^TestSaveSubscription_BannedExpiredUser_Success$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Go-roro/wordrop/internal/subscription" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestSubscriptionServiceTestSuite\E$/^\QTestSaveSubscription_BannedExpiredUser_Success\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestSaveSubscription_ExistingUser_Success in github.com/Go-roro/wordrop/internal/subscription" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="wordrop" />
+      <working_directory value="$PROJECT_DIR$/internal/subscription" />
+      <parameters value=" -testify.m ^TestSaveSubscription_ExistingUser_Success$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Go-roro/wordrop/internal/subscription" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestSubscriptionServiceTestSuite\E$/^\QTestSaveSubscription_ExistingUser_Success\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestSaveSubscription_TooManyRequestedUser in github.com/Go-roro/wordrop/internal/subscription" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="wordrop" />
+      <working_directory value="$PROJECT_DIR$/internal/subscription" />
+      <parameters value=" -testify.m ^TestSaveSubscription_TooManyRequestedUser$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Go-roro/wordrop/internal/subscription" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestSubscriptionServiceTestSuite\E$/^\QTestSaveSubscription_TooManyRequestedUser\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test github.com/Go-roro/wordrop/internal/subscription" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="wordrop" />
+      <working_directory value="$PROJECT_DIR$/internal/subscription" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Go-roro/wordrop/internal/subscription" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.go test github.com/Go-roro/wordrop/internal/subscription" />
+        <item itemvalue="Go Test.TestSaveSubscription_BannedExpiredUser_Success in github.com/Go-roro/wordrop/internal/subscription" />
+        <item itemvalue="Go Test.TestSaveSubscription_AlreadyVerifiedUser in github.com/Go-roro/wordrop/internal/subscription" />
+        <item itemvalue="Go Test.TestSaveSubscription_TooManyRequestedUser in github.com/Go-roro/wordrop/internal/subscription" />
+        <item itemvalue="Go Test.TestSaveSubscription_ExistingUser_Success in github.com/Go-roro/wordrop/internal/subscription" />
       </list>
     </recent_temporary>
   </component>
@@ -73,9 +146,26 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactor: change directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: change directory" />
+    <MESSAGE value="test: Unit test for subscription service with mocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="test: Unit test for subscription service with mocks" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/subscription/service.go</url>
+          <line>62</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/subscription/service.go</url>
+          <line>58</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

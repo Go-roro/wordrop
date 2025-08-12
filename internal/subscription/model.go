@@ -41,7 +41,7 @@ func NewSubscription(username, email string) *Subscription {
 	}
 }
 
-func (s *Subscription) ValidateVerifiable() error {
+func (s *Subscription) validateVerifiable() error {
 	if s.Verified && !s.Banned {
 		return ErrAlreadyVerified
 	}
