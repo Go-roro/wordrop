@@ -14,12 +14,6 @@ import (
 )
 
 const testEnvPath = "../testhelper/.env.email-test"
-const (
-	fromEmailEnv = "EMAIL_SENDER_ADDRESS"
-	passwordEnv  = "EMAIL_SENDER_PASSWORD"
-	smtpHostEnv  = "SMTP_HOST"
-	smtpPortEnv  = "SMTP_PORT"
-)
 
 type EmailSenderTestSuite struct {
 	suite.Suite
@@ -36,7 +30,7 @@ func (suite *EmailSenderTestSuite) SetupSuite() {
 
 	suite.mailServer = testhelper.SetupTestMailServer()
 
-	config, err := NewMailSenderConfigByKey(fromEmailEnv, passwordEnv, smtpHostEnv, smtpPortEnv)
+	config, err := NewMailSenderConfig()
 	if err != nil {
 		log.Fatalf("Failed to create GmailSenderConfig: %v", err)
 	}

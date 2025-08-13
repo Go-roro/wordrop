@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="test: Unit test for subscription service with mocks">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/web/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/infra/email/template/verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/template/verification.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,28 +37,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build main.go.executor": "Run",
-    "Go Test.TestSaveSubscription_AlreadyVerifiedUser in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestSaveSubscription_BannedExpiredUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestSaveSubscription_Banned_User in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestSaveSubscription_ExistingUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestSaveSubscription_NewUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestSaveSubscription_TooManyRequestedUser in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.TestVerifySubscription_ToManyRequested_User in github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "Go Test.go test github.com/Go-roro/wordrop/internal/subscription.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/wontaeyeon"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go Build.go build main.go.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_AlreadyVerifiedUser in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_BannedExpiredUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_Banned_User in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_ExistingUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_NewUser_Success in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestSaveSubscription_TooManyRequestedUser in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestVerifySubscription_ToManyRequested_User in github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.go test github.com/Go-roro/wordrop/internal/subscription.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wontaeyeon&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/internal/subscription" />

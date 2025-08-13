@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/Go-roro/wordrop/internal/infra/email"
+	"github.com/Go-roro/wordrop/internal/subscription"
 	"log"
 	"net/http"
 
@@ -20,15 +22,31 @@ func main() {
 	}
 
 	database := setupDatabase()
-	repo := word.NewWordRepo(database)
-	service := word.NewWordService(repo)
+	wordRepo := word.NewWordRepo(database)
+	wordService := word.NewWordService(wordRepo)
 
-	r := web.SetupRouter(service)
+	subscriptionRepo := subscription.NewSubscriptionRepo(database)
+	sender := setupMailSender()
+	subscriptionService := subscription.NewSubscriptionService(subscriptionRepo, sender)
+
+	r := web.SetupRouter(wordService, subscriptionService)
 	log.Printf("Starting server on %s\n", localPort)
 
 	if err := http.ListenAndServe(localPort, r); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
+}
+
+func setupMailSender() *email.GmailSender {
+	config, err := email.NewMailSenderConfig()
+	if err != nil {
+		log.Fatalf("Failed to create MailSenderConfig: %v", err)
+	}
+	sender, err := email.NewMailSender(config)
+	if err != nil {
+		log.Fatalf("Failed to create MailSender: %v", err)
+	}
+	return sender
 }
 
 func setupDatabase() *mongo.Database {

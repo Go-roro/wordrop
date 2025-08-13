@@ -11,11 +11,22 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
+const (
+	fromEmailEnv = "EMAIL_SENDER_ADDRESS"
+	passwordEnv  = "EMAIL_SENDER_PASSWORD"
+	smtpHostEnv  = "SMTP_HOST"
+	smtpPortEnv  = "SMTP_PORT"
+)
+
 type GmailSenderConfig struct {
 	fromEmail string
 	password  string
 	smtpHost  string
 	smtpPort  int
+}
+
+func NewMailSenderConfig() (*GmailSenderConfig, error) {
+	return NewMailSenderConfigByKey(fromEmailEnv, passwordEnv, smtpHostEnv, smtpPortEnv)
 }
 
 func NewMailSenderConfigByKey(fromEmailKey, passwordKey, smtpHostKey, smtpPortKey string) (*GmailSenderConfig, error) {
