@@ -70,22 +70,6 @@ func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_FindByEmail()
 	})
 }
 
-func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_ExistsByEmail() {
-	suite.Run("Exists", func() {
-		sub := subscriptionFixture()
-		_, err := suite.repo.SaveSubscription(sub)
-		suite.NoError(err)
-
-		exists := suite.repo.ExistsByEmail(sub.Email)
-		suite.True(exists, "Expected subscription to exist")
-	})
-
-	suite.Run("NotExists", func() {
-		exists := suite.repo.ExistsByEmail("nonexistent@example.com")
-		suite.False(exists, "Expected subscription to not exist")
-	})
-}
-
 func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_UpdateSubscription() {
 	suite.Run("Update", func() {
 		sub := subscriptionFixture()

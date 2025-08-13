@@ -40,18 +40,6 @@ func (r *MongoRepository) FindByEmail(email string) (*Subscription, error) {
 	return subscription, nil
 }
 
-func (r *MongoRepository) ExistsByEmail(email string) bool {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	count, err := r.collection.CountDocuments(ctx, bson.M{"email": email})
-	if err != nil {
-		return false
-	}
-
-	return count > 0
-}
-
 func (r *MongoRepository) SaveSubscription(subscription *Subscription) (*Subscription, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

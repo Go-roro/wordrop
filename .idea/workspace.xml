@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="asset: Fix logo url">
+    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="refactor: Remove not used function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/subscription/repo.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/subscription/repo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +159,9 @@
     <MESSAGE value="feat: Handler for save new subscription" />
     <MESSAGE value="asset: Logo" />
     <MESSAGE value="asset: Fix logo url" />
-    <option name="LAST_COMMIT_MESSAGE" value="asset: Fix logo url" />
+    <MESSAGE value="fix: Specify the error type" />
+    <MESSAGE value="refactor: Remove not used function" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Remove not used function" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -172,17 +171,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/subscription/service.go</url>
-          <line>62</line>
+          <line>61</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/subscription/service.go</url>
-          <line>58</line>
+          <line>57</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/subscription/service.go</url>
-          <line>31</line>
+          <line>30</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

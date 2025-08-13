@@ -7,7 +7,6 @@ import (
 
 type Repository interface {
 	FindByEmail(email string) (*Subscription, error)
-	ExistsByEmail(email string) bool
 	SaveSubscription(subscription *Subscription) (*Subscription, error)
 	UpdateSubscription(subscription *Subscription) error
 }
