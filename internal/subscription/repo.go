@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -28,6 +29,10 @@ func (r *MongoRepository) FindByEmail(email string) (*Subscription, error) {
 
 	result := r.collection.FindOne(ctx, bson.M{"email": email})
 	subscription := &Subscription{}
+	if errors.Is(result.Err(), mongo.ErrNoDocuments) {
+		return nil, ErrSubscriptionNotFound
+	}
+
 	if err := result.Decode(subscription); err != nil {
 		return nil, err
 	}

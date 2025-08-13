@@ -77,7 +77,7 @@ type VerificationTemplateData struct {
 
 func (gs *GmailSender) SendVerificationEmail(toEmail string, username string, verificationToken string) error {
 	baseURL := os.Getenv("APP_BASE_URL")
-	verificationLink := fmt.Sprintf("%s/verify?token=%s", baseURL, verificationToken)
+	verificationLink := fmt.Sprintf("%s/subscription/verify?token=%s", baseURL, verificationToken)
 
 	data := VerificationTemplateData{
 		Username:         username,
@@ -93,7 +93,7 @@ func (gs *GmailSender) SendVerificationEmail(toEmail string, username string, ve
 	m := gomail.NewMessage()
 	m.SetHeader("From", gs.config.fromEmail)
 	m.SetHeader("To", toEmail)
-	m.SetHeader("Subject", "Welcome to Wordrop! Please Verify Your Email")
+	m.SetHeader("Subject", "Wordrop - 이메일 주소를 인증해주세요")
 	m.SetBody("text/html", body.String())
 
 	if err := gs.dialer.DialAndSend(m); err != nil {

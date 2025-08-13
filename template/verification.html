@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wordrop - 이메일 인증</title>
+    <style>
+        /* Basic Reset */
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+        table { border-collapse: collapse !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+        /* Main Styles - Themed for Wordrop */
+        .wrapper {
+            background-color: #F6F0E9;
+            width: 100%;
+            padding: 40px 0;
+        }
+        .content {
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .logo {
+            /* CSS max-width is still good for responsive clients */
+            max-width: 100px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #1e1e2d;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .body-text {
+            color: #5e5e5e;
+            font-size: 16px;
+            line-height: 1.7; /* Slightly increased line-height for readability */
+            padding: 20px 0;
+        }
+        .verify-button {
+            background-color: #74B3E0;
+            border-radius: 5px;
+            color: #ffffff;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 15px 30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .verify-button:hover {
+            background-color: #5a9ac9;
+        }
+        .footer {
+            color: #999999;
+            font-size: 12px;
+            text-align: center;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center">
+                <div class="content">
+                    <!-- Logo with embedded width for maximum compatibility -->
+                    <img src="https://github.com/Go-roro/wordrop/blob/main/assets/wordrop_logo_kr.jpg?raw=true" alt="Wordrop 로고" width="200" class="logo">
+                    <div class="header">
+                        <h1>이메일 주소를 인증해주세요</h1>
+                    </div>
+                    <div class="body-text">
+                        <br>{{.Username}}님, 안녕하세요!<br><br>
+                        <strong>Wordrop</strong> 에 오신 것을 환영합니다.<br>
+                        매일 새로운 단어 한 방울을 받아보시려면,<br>아래 버튼을 클릭하여 이메일 주소를 인증해주세요.
+                    </div>
+                    <a href="{{.VerificationLink}}" class="verify-button">이메일 인증하기</a>
+                    <div class="body-text" style="padding-top: 30px;">
+                        이 링크는 24시간 후에 만료됩니다.<br><br>
+                        Wordrop에 가입한 적이 없으시다면<br>이 메일은 무시하셔도 좋습니다.
+                    </div>
+                    <div class="footer">
+                        <p>&copy; 2025 Wordrop. All rights reserved.</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
