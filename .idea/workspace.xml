@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="test: Unit test for subscription service with mocks">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/web/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/smtp_sender_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/email/template/verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/email/template/verification.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="a1a258d8-5435-47e8-b493-80c100487897" name="Changes" comment="feat: Handler for save new subscription" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,7 +145,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactor: change directory" />
     <MESSAGE value="test: Unit test for subscription service with mocks" />
-    <option name="LAST_COMMIT_MESSAGE" value="test: Unit test for subscription service with mocks" />
+    <MESSAGE value="feat: Handler for save new subscription" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Handler for save new subscription" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
