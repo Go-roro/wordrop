@@ -87,3 +87,17 @@ func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_UpdateSubscri
 		suite.Equal("updated_user", updatedSub.Username, "Expected 'Username' field to be updated")
 	})
 }
+
+func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_FindByVerificationCode() {
+	suite.Run("Find by verification code", func() {
+		sub := subscriptionFixture()
+		verificationCode := "testVerificationCode"
+		sub.VerificationCode = verificationCode
+		suite.repo.SaveSubscription(sub)
+
+		findOne, err := suite.repo.FindByVerificationCode(verificationCode)
+		suite.NoError(err, "Expected no error when find subscription by verification code")
+
+		suite.NotNil(findOne)
+	})
+}

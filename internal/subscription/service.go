@@ -9,6 +9,7 @@ type Repository interface {
 	FindByEmail(email string) (*Subscription, error)
 	SaveSubscription(subscription *Subscription) (*Subscription, error)
 	UpdateSubscription(subscription *Subscription) error
+	FindByVerificationCode(code string) (*Subscription, error)
 }
 
 type MailSender interface {

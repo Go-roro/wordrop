@@ -68,3 +68,21 @@ func (r *MongoRepository) UpdateSubscription(subscription *Subscription) error {
 	}
 	return nil
 }
+
+func (r *MongoRepository) FindByVerificationCode(code string) (*Subscription, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	filter := bson.M{"verification_code": code}
+	result := r.collection.FindOne(ctx, filter)
+	if errors.Is(result.Err(), mongo.ErrNoDocuments) {
+		return nil, ErrSubscriptionNotFound
+	}
+
+	subscription := &Subscription{}
+	if err := result.Decode(subscription); err != nil {
+		return nil, fmt.Errorf("failed to decode subscription: %w", err)
+	}
+
+	return subscription, nil
+}
