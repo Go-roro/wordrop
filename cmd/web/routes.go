@@ -22,6 +22,7 @@ func SetupRouter(wordService *word.Service, subscriptionService *subscription.Se
 
 	r.Route("/subscriptions", func(r chi.Router) {
 		r.Post("/", subscriptionHandler.SaveNewSubscription)
+		r.Get("/verify", subscriptionHandler.VerifySubscription)
 	})
 	return r
 }

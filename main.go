@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/Go-roro/wordrop/internal/auth"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/Go-roro/wordrop/cmd/web"
+	"github.com/Go-roro/wordrop/internal/auth"
 	"github.com/Go-roro/wordrop/internal/infra/db"
 	"github.com/Go-roro/wordrop/internal/infra/email"
 	"github.com/Go-roro/wordrop/internal/subscription"

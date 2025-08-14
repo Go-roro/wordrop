@@ -65,7 +65,7 @@ func (s *Service) SaveSubscription(saveDto *SaveSubscriptionDto) error {
 
 func (s *Service) sendVerificationEmail(subscription *Subscription) error {
 	subscription.refreshVerificationCode()
-	token, err := s.jwtProvider.GenerateVerificationToken(subscription.ID.String(), subscription.VerificationCode)
+	token, err := s.jwtProvider.GenerateVerificationToken(subscription.ID.Hex(), subscription.VerificationCode)
 	if err != nil {
 		return fmt.Errorf("failed to generate verification token: %w", err)
 	}

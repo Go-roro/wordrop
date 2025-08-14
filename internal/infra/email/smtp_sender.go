@@ -77,7 +77,7 @@ type VerificationTemplateData struct {
 
 func (gs *GmailSender) SendVerificationEmail(toEmail string, username string, verificationToken string) error {
 	baseURL := os.Getenv("APP_BASE_URL")
-	verificationLink := fmt.Sprintf("%s/subscription/verify?token=%s", baseURL, verificationToken)
+	verificationLink := fmt.Sprintf("%s/subscriptions/verify?token=%s", baseURL, verificationToken)
 
 	data := VerificationTemplateData{
 		Username:         username,

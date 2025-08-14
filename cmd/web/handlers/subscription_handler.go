@@ -30,3 +30,20 @@ func (h *SubscriptionHandler) SaveNewSubscription(w http.ResponseWriter, r *http
 
 	w.WriteHeader(http.StatusOK)
 }
+
+func (h *SubscriptionHandler) VerifySubscription(w http.ResponseWriter, r *http.Request) {
+	verificationToken := r.URL.Query().Get("token")
+	if verificationToken == "" {
+		NewHTTPError(w, "Verification token is required", http.StatusBadRequest)
+		return
+	}
+
+	err := h.SubscriptionService.VerifySubscription(verificationToken)
+	if err != nil {
+		errMessage := fmt.Errorf("failed to verify subscription: %v", err)
+		NewHTTPError(w, errMessage.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
