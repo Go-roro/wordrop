@@ -35,57 +35,6 @@ func (_m *MockRepository) EXPECT() *MockRepository_Expecter {
 	return &MockRepository_Expecter{mock: &_m.Mock}
 }
 
-// ExistsByEmail provides a mock function for the type MockRepository
-func (_mock *MockRepository) ExistsByEmail(email string) bool {
-	ret := _mock.Called(email)
-
-	if len(ret) == 0 {
-		panic("no return value specified for ExistsByEmail")
-	}
-
-	var r0 bool
-	if returnFunc, ok := ret.Get(0).(func(string) bool); ok {
-		r0 = returnFunc(email)
-	} else {
-		r0 = ret.Get(0).(bool)
-	}
-	return r0
-}
-
-// MockRepository_ExistsByEmail_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'ExistsByEmail'
-type MockRepository_ExistsByEmail_Call struct {
-	*mock.Call
-}
-
-// ExistsByEmail is a helper method to define mock.On call
-//   - email string
-func (_e *MockRepository_Expecter) ExistsByEmail(email interface{}) *MockRepository_ExistsByEmail_Call {
-	return &MockRepository_ExistsByEmail_Call{Call: _e.mock.On("ExistsByEmail", email)}
-}
-
-func (_c *MockRepository_ExistsByEmail_Call) Run(run func(email string)) *MockRepository_ExistsByEmail_Call {
-	_c.Call.Run(func(args mock.Arguments) {
-		var arg0 string
-		if args[0] != nil {
-			arg0 = args[0].(string)
-		}
-		run(
-			arg0,
-		)
-	})
-	return _c
-}
-
-func (_c *MockRepository_ExistsByEmail_Call) Return(b bool) *MockRepository_ExistsByEmail_Call {
-	_c.Call.Return(b)
-	return _c
-}
-
-func (_c *MockRepository_ExistsByEmail_Call) RunAndReturn(run func(email string) bool) *MockRepository_ExistsByEmail_Call {
-	_c.Call.Return(run)
-	return _c
-}
-
 // FindByEmail provides a mock function for the type MockRepository
 func (_mock *MockRepository) FindByEmail(email string) (*Subscription, error) {
 	ret := _mock.Called(email)
@@ -138,8 +87,8 @@ func (_c *MockRepository_FindByEmail_Call) Run(run func(email string)) *MockRepo
 	return _c
 }
 
-func (_c *MockRepository_FindByEmail_Call) Return(subscription1 *Subscription, err error) *MockRepository_FindByEmail_Call {
-	_c.Call.Return(subscription1, err)
+func (_c *MockRepository_FindByEmail_Call) Return(subscription *Subscription, err error) *MockRepository_FindByEmail_Call {
+	_c.Call.Return(subscription, err)
 	return _c
 }
 
@@ -148,9 +97,71 @@ func (_c *MockRepository_FindByEmail_Call) RunAndReturn(run func(email string) (
 	return _c
 }
 
+// FindByVerificationCode provides a mock function for the type MockRepository
+func (_mock *MockRepository) FindByVerificationCode(code string) (*Subscription, error) {
+	ret := _mock.Called(code)
+
+	if len(ret) == 0 {
+		panic("no return value specified for FindByVerificationCode")
+	}
+
+	var r0 *Subscription
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func(string) (*Subscription, error)); ok {
+		return returnFunc(code)
+	}
+	if returnFunc, ok := ret.Get(0).(func(string) *Subscription); ok {
+		r0 = returnFunc(code)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*Subscription)
+		}
+	}
+	if returnFunc, ok := ret.Get(1).(func(string) error); ok {
+		r1 = returnFunc(code)
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
+}
+
+// MockRepository_FindByVerificationCode_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindByVerificationCode'
+type MockRepository_FindByVerificationCode_Call struct {
+	*mock.Call
+}
+
+// FindByVerificationCode is a helper method to define mock.On call
+//   - code string
+func (_e *MockRepository_Expecter) FindByVerificationCode(code interface{}) *MockRepository_FindByVerificationCode_Call {
+	return &MockRepository_FindByVerificationCode_Call{Call: _e.mock.On("FindByVerificationCode", code)}
+}
+
+func (_c *MockRepository_FindByVerificationCode_Call) Run(run func(code string)) *MockRepository_FindByVerificationCode_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		var arg0 string
+		if args[0] != nil {
+			arg0 = args[0].(string)
+		}
+		run(
+			arg0,
+		)
+	})
+	return _c
+}
+
+func (_c *MockRepository_FindByVerificationCode_Call) Return(subscription *Subscription, err error) *MockRepository_FindByVerificationCode_Call {
+	_c.Call.Return(subscription, err)
+	return _c
+}
+
+func (_c *MockRepository_FindByVerificationCode_Call) RunAndReturn(run func(code string) (*Subscription, error)) *MockRepository_FindByVerificationCode_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // SaveSubscription provides a mock function for the type MockRepository
-func (_mock *MockRepository) SaveSubscription(subscription1 *Subscription) (*Subscription, error) {
-	ret := _mock.Called(subscription1)
+func (_mock *MockRepository) SaveSubscription(subscription *Subscription) (*Subscription, error) {
+	ret := _mock.Called(subscription)
 
 	if len(ret) == 0 {
 		panic("no return value specified for SaveSubscription")
@@ -159,17 +170,17 @@ func (_mock *MockRepository) SaveSubscription(subscription1 *Subscription) (*Sub
 	var r0 *Subscription
 	var r1 error
 	if returnFunc, ok := ret.Get(0).(func(*Subscription) (*Subscription, error)); ok {
-		return returnFunc(subscription1)
+		return returnFunc(subscription)
 	}
 	if returnFunc, ok := ret.Get(0).(func(*Subscription) *Subscription); ok {
-		r0 = returnFunc(subscription1)
+		r0 = returnFunc(subscription)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*Subscription)
 		}
 	}
 	if returnFunc, ok := ret.Get(1).(func(*Subscription) error); ok {
-		r1 = returnFunc(subscription1)
+		r1 = returnFunc(subscription)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -182,12 +193,12 @@ type MockRepository_SaveSubscription_Call struct {
 }
 
 // SaveSubscription is a helper method to define mock.On call
-//   - subscription1 *subscription.Subscription
-func (_e *MockRepository_Expecter) SaveSubscription(subscription1 interface{}) *MockRepository_SaveSubscription_Call {
-	return &MockRepository_SaveSubscription_Call{Call: _e.mock.On("SaveSubscription", subscription1)}
+//   - subscription *Subscription
+func (_e *MockRepository_Expecter) SaveSubscription(subscription interface{}) *MockRepository_SaveSubscription_Call {
+	return &MockRepository_SaveSubscription_Call{Call: _e.mock.On("SaveSubscription", subscription)}
 }
 
-func (_c *MockRepository_SaveSubscription_Call) Run(run func(subscription1 *Subscription)) *MockRepository_SaveSubscription_Call {
+func (_c *MockRepository_SaveSubscription_Call) Run(run func(subscription *Subscription)) *MockRepository_SaveSubscription_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 *Subscription
 		if args[0] != nil {
@@ -200,19 +211,19 @@ func (_c *MockRepository_SaveSubscription_Call) Run(run func(subscription1 *Subs
 	return _c
 }
 
-func (_c *MockRepository_SaveSubscription_Call) Return(subscription11 *Subscription, err error) *MockRepository_SaveSubscription_Call {
-	_c.Call.Return(subscription11, err)
+func (_c *MockRepository_SaveSubscription_Call) Return(subscription1 *Subscription, err error) *MockRepository_SaveSubscription_Call {
+	_c.Call.Return(subscription1, err)
 	return _c
 }
 
-func (_c *MockRepository_SaveSubscription_Call) RunAndReturn(run func(subscription1 *Subscription) (*Subscription, error)) *MockRepository_SaveSubscription_Call {
+func (_c *MockRepository_SaveSubscription_Call) RunAndReturn(run func(subscription *Subscription) (*Subscription, error)) *MockRepository_SaveSubscription_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // UpdateSubscription provides a mock function for the type MockRepository
-func (_mock *MockRepository) UpdateSubscription(subscription1 *Subscription) error {
-	ret := _mock.Called(subscription1)
+func (_mock *MockRepository) UpdateSubscription(subscription *Subscription) error {
+	ret := _mock.Called(subscription)
 
 	if len(ret) == 0 {
 		panic("no return value specified for UpdateSubscription")
@@ -220,7 +231,7 @@ func (_mock *MockRepository) UpdateSubscription(subscription1 *Subscription) err
 
 	var r0 error
 	if returnFunc, ok := ret.Get(0).(func(*Subscription) error); ok {
-		r0 = returnFunc(subscription1)
+		r0 = returnFunc(subscription)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -233,12 +244,12 @@ type MockRepository_UpdateSubscription_Call struct {
 }
 
 // UpdateSubscription is a helper method to define mock.On call
-//   - subscription1 *subscription.Subscription
-func (_e *MockRepository_Expecter) UpdateSubscription(subscription1 interface{}) *MockRepository_UpdateSubscription_Call {
-	return &MockRepository_UpdateSubscription_Call{Call: _e.mock.On("UpdateSubscription", subscription1)}
+//   - subscription *Subscription
+func (_e *MockRepository_Expecter) UpdateSubscription(subscription interface{}) *MockRepository_UpdateSubscription_Call {
+	return &MockRepository_UpdateSubscription_Call{Call: _e.mock.On("UpdateSubscription", subscription)}
 }
 
-func (_c *MockRepository_UpdateSubscription_Call) Run(run func(subscription1 *Subscription)) *MockRepository_UpdateSubscription_Call {
+func (_c *MockRepository_UpdateSubscription_Call) Run(run func(subscription *Subscription)) *MockRepository_UpdateSubscription_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 *Subscription
 		if args[0] != nil {
@@ -256,7 +267,7 @@ func (_c *MockRepository_UpdateSubscription_Call) Return(err error) *MockReposit
 	return _c
 }
 
-func (_c *MockRepository_UpdateSubscription_Call) RunAndReturn(run func(subscription1 *Subscription) error) *MockRepository_UpdateSubscription_Call {
+func (_c *MockRepository_UpdateSubscription_Call) RunAndReturn(run func(subscription *Subscription) error) *MockRepository_UpdateSubscription_Call {
 	_c.Call.Return(run)
 	return _c
 }

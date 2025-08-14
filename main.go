@@ -1,8 +1,10 @@
 package main
 
 import (
+	"github.com/Go-roro/wordrop/internal/auth"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Go-roro/wordrop/cmd/web"
 	"github.com/Go-roro/wordrop/internal/infra/db"
@@ -27,7 +29,11 @@ func main() {
 
 	subscriptionRepo := subscription.NewSubscriptionRepo(database)
 	sender := setupMailSender()
-	subscriptionService := subscription.NewSubscriptionService(subscriptionRepo, sender)
+	provider, err := auth.NewJwtProvider(os.Getenv("JWT_SECRET_KEY"))
+	if err != nil {
+		log.Fatalf("Failed to create JWT provider: %v", err)
+	}
+	subscriptionService := subscription.NewSubscriptionService(subscriptionRepo, sender, provider)
 
 	r := web.SetupRouter(wordService, subscriptionService)
 	log.Printf("Starting server on %s\n", localPort)

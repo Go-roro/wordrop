@@ -1,6 +1,7 @@
 package subscription
 
 import (
+	"github.com/Go-roro/wordrop/internal/auth"
 	"testing"
 	"time"
 
@@ -18,7 +19,8 @@ type SubscriptionServiceTestSuite struct {
 func (suite *SubscriptionServiceTestSuite) SetupTest() {
 	suite.mockRepo = new(MockRepository)
 	suite.mockMailSender = new(MockMailSender)
-	suite.service = NewSubscriptionService(suite.mockRepo, suite.mockMailSender)
+	provider, _ := auth.NewJwtProvider("a-string-secret-at-least-256-bits-long")
+	suite.service = NewSubscriptionService(suite.mockRepo, suite.mockMailSender, provider)
 }
 
 func TestSubscriptionServiceTestSuite(t *testing.T) {

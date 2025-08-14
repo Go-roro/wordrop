@@ -3,6 +3,8 @@ package subscription
 import (
 	"errors"
 	"fmt"
+
+	"github.com/Go-roro/wordrop/internal/auth"
 )
 
 type Repository interface {
@@ -17,14 +19,16 @@ type MailSender interface {
 }
 
 type Service struct {
-	repository Repository
-	mailSender MailSender
+	repository  Repository
+	mailSender  MailSender
+	jwtProvider *auth.JwtProvider
 }
 
-func NewSubscriptionService(repo Repository, mailSender MailSender) *Service {
+func NewSubscriptionService(repo Repository, mailSender MailSender, provider *auth.JwtProvider) *Service {
 	return &Service{
-		repository: repo,
-		mailSender: mailSender,
+		repository:  repo,
+		mailSender:  mailSender,
+		jwtProvider: provider,
 	}
 }
 
@@ -61,8 +65,12 @@ func (s *Service) SaveSubscription(saveDto *SaveSubscriptionDto) error {
 
 func (s *Service) sendVerificationEmail(subscription *Subscription) error {
 	subscription.refreshVerificationCode()
-	err := s.mailSender.SendVerificationEmail(subscription.Email, subscription.Username, subscription.VerificationCode)
+	token, err := s.jwtProvider.GenerateVerificationToken(subscription.ID.Hex(), subscription.VerificationCode)
 	if err != nil {
+		return fmt.Errorf("failed to generate verification token: %w", err)
+	}
+
+	if err := s.mailSender.SendVerificationEmail(subscription.Email, subscription.Username, token); err != nil {
 		return fmt.Errorf("failed to send verification email: %w", err)
 	}
 	subscription.verificationMailSent()
