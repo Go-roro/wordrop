@@ -88,14 +88,14 @@ func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_UpdateSubscri
 	})
 }
 
-func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_FindByVerificationCode() {
-	suite.Run("Find by verification code", func() {
+func (suite *SubscriptionRepoTestSuite) TestSubscriptionRepository_FindByIdAndVerificationCode() {
+	suite.Run("Find by id and verification code", func() {
 		sub := subscriptionFixture()
 		verificationCode := "testVerificationCode"
 		sub.VerificationCode = verificationCode
-		suite.repo.SaveSubscription(sub)
+		sub, _ = suite.repo.SaveSubscription(sub)
 
-		findOne, err := suite.repo.FindByVerificationCode(verificationCode)
+		findOne, err := suite.repo.FindByIdAndVerificationCode(sub.ID.Hex(), verificationCode)
 		suite.NoError(err, "Expected no error when find subscription by verification code")
 
 		suite.NotNil(findOne)

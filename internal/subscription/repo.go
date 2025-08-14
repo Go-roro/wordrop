@@ -69,11 +69,16 @@ func (r *MongoRepository) UpdateSubscription(subscription *Subscription) error {
 	return nil
 }
 
-func (r *MongoRepository) FindByVerificationCode(code string) (*Subscription, error) {
+func (r *MongoRepository) FindByIdAndVerificationCode(id, code string) (*Subscription, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	filter := bson.M{"verification_code": code}
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, fmt.Errorf("invalid object ID: %w", err)
+	}
+
+	filter := bson.M{"_id": objectId, "verification_code": code}
 	result := r.collection.FindOne(ctx, filter)
 	if errors.Is(result.Err(), mongo.ErrNoDocuments) {
 		return nil, ErrSubscriptionNotFound

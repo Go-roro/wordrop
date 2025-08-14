@@ -11,7 +11,7 @@ type Repository interface {
 	FindByEmail(email string) (*Subscription, error)
 	SaveSubscription(subscription *Subscription) (*Subscription, error)
 	UpdateSubscription(subscription *Subscription) error
-	FindByVerificationCode(code string) (*Subscription, error)
+	FindByIdAndVerificationCode(id string, code string) (*Subscription, error)
 }
 
 type MailSender interface {
@@ -65,7 +65,7 @@ func (s *Service) SaveSubscription(saveDto *SaveSubscriptionDto) error {
 
 func (s *Service) sendVerificationEmail(subscription *Subscription) error {
 	subscription.refreshVerificationCode()
-	token, err := s.jwtProvider.GenerateVerificationToken(subscription.ID.Hex(), subscription.VerificationCode)
+	token, err := s.jwtProvider.GenerateVerificationToken(subscription.ID.String(), subscription.VerificationCode)
 	if err != nil {
 		return fmt.Errorf("failed to generate verification token: %w", err)
 	}
@@ -76,6 +76,24 @@ func (s *Service) sendVerificationEmail(subscription *Subscription) error {
 	subscription.verificationMailSent()
 	if err := s.repository.UpdateSubscription(subscription); err != nil {
 		return fmt.Errorf("failed to update subscription after sending email: %w", err)
+	}
+	return nil
+}
+
+func (s *Service) VerifySubscription(verificationToken string) error {
+	claims, err := s.jwtProvider.ParseVerificationToken(verificationToken)
+	if err != nil {
+		return fmt.Errorf("failed to parse verification token: %w", err)
+	}
+
+	subscription, err := s.repository.FindByIdAndVerificationCode(claims.ID, claims.VerificationCode)
+	if err != nil {
+		return fmt.Errorf("failed to find subscription by verification claims: %w", err)
+	}
+
+	subscription.Verified = true
+	if err := s.repository.UpdateSubscription(subscription); err != nil {
+		return fmt.Errorf("failed to update subscription after verification: %w", err)
 	}
 	return nil
 }

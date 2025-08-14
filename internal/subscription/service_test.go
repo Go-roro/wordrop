@@ -1,18 +1,20 @@
 package subscription
 
 import (
-	"github.com/Go-roro/wordrop/internal/auth"
 	"testing"
 	"time"
 
+	"github.com/Go-roro/wordrop/internal/auth"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type SubscriptionServiceTestSuite struct {
 	suite.Suite
 	mockRepo       *MockRepository
 	mockMailSender *MockMailSender
+	provider       *auth.JwtProvider
 	service        *Service
 }
 
@@ -20,6 +22,7 @@ func (suite *SubscriptionServiceTestSuite) SetupTest() {
 	suite.mockRepo = new(MockRepository)
 	suite.mockMailSender = new(MockMailSender)
 	provider, _ := auth.NewJwtProvider("a-string-secret-at-least-256-bits-long")
+	suite.provider = provider
 	suite.service = NewSubscriptionService(suite.mockRepo, suite.mockMailSender, provider)
 }
 
@@ -168,4 +171,23 @@ func (suite *SubscriptionServiceTestSuite) TestSaveSubscription_AlreadyVerifiedU
 	suite.ErrorIs(err, ErrAlreadyVerified)
 	suite.mockRepo.AssertExpectations(suite.T())
 	suite.mockMailSender.AssertNotCalled(suite.T(), "SendVerificationEmail")
+}
+
+func (suite *SubscriptionServiceTestSuite) TestVerifySubscription_Success() {
+	// Given
+	sub := NewSubscription("user", "user@email.com")
+	sub.ID = primitive.NewObjectID()
+	sub.VerificationCode = "code123"
+	suite.mockRepo.EXPECT().FindByIdAndVerificationCode(sub.ID.Hex(), sub.VerificationCode).Return(sub, nil)
+	suite.mockRepo.EXPECT().UpdateSubscription(sub).Return(nil)
+
+	verificationToken, err := suite.provider.GenerateVerificationToken(sub.ID.Hex(), sub.VerificationCode)
+	suite.NoError(err)
+
+	// When
+	err = suite.service.VerifySubscription(verificationToken)
+
+	// Then
+	suite.NoError(err)
+	suite.True(sub.Verified, "Expected subscription to be verified")
 }

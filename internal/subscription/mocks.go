@@ -97,64 +97,70 @@ func (_c *MockRepository_FindByEmail_Call) RunAndReturn(run func(email string) (
 	return _c
 }
 
-// FindByVerificationCode provides a mock function for the type MockRepository
-func (_mock *MockRepository) FindByVerificationCode(code string) (*Subscription, error) {
-	ret := _mock.Called(code)
+// FindByIdAndVerificationCode provides a mock function for the type MockRepository
+func (_mock *MockRepository) FindByIdAndVerificationCode(id string, code string) (*Subscription, error) {
+	ret := _mock.Called(id, code)
 
 	if len(ret) == 0 {
-		panic("no return value specified for FindByVerificationCode")
+		panic("no return value specified for FindByIdAndVerificationCode")
 	}
 
 	var r0 *Subscription
 	var r1 error
-	if returnFunc, ok := ret.Get(0).(func(string) (*Subscription, error)); ok {
-		return returnFunc(code)
+	if returnFunc, ok := ret.Get(0).(func(string, string) (*Subscription, error)); ok {
+		return returnFunc(id, code)
 	}
-	if returnFunc, ok := ret.Get(0).(func(string) *Subscription); ok {
-		r0 = returnFunc(code)
+	if returnFunc, ok := ret.Get(0).(func(string, string) *Subscription); ok {
+		r0 = returnFunc(id, code)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*Subscription)
 		}
 	}
-	if returnFunc, ok := ret.Get(1).(func(string) error); ok {
-		r1 = returnFunc(code)
+	if returnFunc, ok := ret.Get(1).(func(string, string) error); ok {
+		r1 = returnFunc(id, code)
 	} else {
 		r1 = ret.Error(1)
 	}
 	return r0, r1
 }
 
-// MockRepository_FindByVerificationCode_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindByVerificationCode'
-type MockRepository_FindByVerificationCode_Call struct {
+// MockRepository_FindByIdAndVerificationCode_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindByIdAndVerificationCode'
+type MockRepository_FindByIdAndVerificationCode_Call struct {
 	*mock.Call
 }
 
-// FindByVerificationCode is a helper method to define mock.On call
+// FindByIdAndVerificationCode is a helper method to define mock.On call
+//   - id string
 //   - code string
-func (_e *MockRepository_Expecter) FindByVerificationCode(code interface{}) *MockRepository_FindByVerificationCode_Call {
-	return &MockRepository_FindByVerificationCode_Call{Call: _e.mock.On("FindByVerificationCode", code)}
+func (_e *MockRepository_Expecter) FindByIdAndVerificationCode(id interface{}, code interface{}) *MockRepository_FindByIdAndVerificationCode_Call {
+	return &MockRepository_FindByIdAndVerificationCode_Call{Call: _e.mock.On("FindByIdAndVerificationCode", id, code)}
 }
 
-func (_c *MockRepository_FindByVerificationCode_Call) Run(run func(code string)) *MockRepository_FindByVerificationCode_Call {
+func (_c *MockRepository_FindByIdAndVerificationCode_Call) Run(run func(id string, code string)) *MockRepository_FindByIdAndVerificationCode_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 string
 		if args[0] != nil {
 			arg0 = args[0].(string)
 		}
+		var arg1 string
+		if args[1] != nil {
+			arg1 = args[1].(string)
+		}
 		run(
 			arg0,
+			arg1,
 		)
 	})
 	return _c
 }
 
-func (_c *MockRepository_FindByVerificationCode_Call) Return(subscription *Subscription, err error) *MockRepository_FindByVerificationCode_Call {
+func (_c *MockRepository_FindByIdAndVerificationCode_Call) Return(subscription *Subscription, err error) *MockRepository_FindByIdAndVerificationCode_Call {
 	_c.Call.Return(subscription, err)
 	return _c
 }
 
-func (_c *MockRepository_FindByVerificationCode_Call) RunAndReturn(run func(code string) (*Subscription, error)) *MockRepository_FindByVerificationCode_Call {
+func (_c *MockRepository_FindByIdAndVerificationCode_Call) RunAndReturn(run func(id string, code string) (*Subscription, error)) *MockRepository_FindByIdAndVerificationCode_Call {
 	_c.Call.Return(run)
 	return _c
 }
